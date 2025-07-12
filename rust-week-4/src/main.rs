@@ -59,6 +59,6 @@ fn main() {
 
 }
 
-fn longest_string<'a,'b>(a:&'a String,b:&'b String) -> &'b String{
-    return b;
+fn longest_string<'a,'b>(s1:&'a String,s2:&'b String) -> &'a String{
+    return s1;
 }
