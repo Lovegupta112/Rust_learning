@@ -47,4 +47,15 @@ fn main() {
 
     let s = &v[0..2];
     println!("slice: {:?}", s);
+
+    let mut v: Vec<i8> = vec![1, 3, 5];
+    for (i,val) in v.iter().enumerate() {
+      let str=format!("{}: {}",i,val);
+      print!("{},{} , {} \n",i,val,str);
+    }
+
+    // v.drain(..);
+    v.clear();
+
+    print!("value of v: {:?}",v)
 }
