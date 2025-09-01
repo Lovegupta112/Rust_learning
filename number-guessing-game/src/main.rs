@@ -1,23 +1,51 @@
+use rand::{Rng, random, random_range, rng};
 use std::io::stdin;
-use rand::{random, random_range, rng, Rng};
 
+fn generate_rand_number() -> u32 {
+    let val = random_range(1..100);
+    val
+}
 
+fn compare_num(random_number: u32, user_option: u32) {
+    if random_number == user_option {
+        println!("You win!");
+        println!(
+            "System Number: {}, Your number:{} ",
+            random_number, user_option
+        );
+    } else if random_number > user_option {
+        println!("Too Low!");
+        println!(
+            "System Number: {}, Your number:{} ",
+            random_number, user_option
+        );
+    } else {
+        println!("Too High!");
+        println!(
+            "System Number: {}, Your number:{} ",
+            random_number, user_option
+        );
+    }
+}
 fn main() {
-    
     // let val1:u32=random();
     // let val2:u32=rng().random();
-     let mut inputStr=String::new();
-     println!("Enter any random number from 1 to 100..");
-     let val3=random_range(1..100);
-      let input=stdin().read_line(&mut inputStr);
-
-      match input{
-        Ok(data)=>println!("val3: {}, input:{} ",val3,data),
-        Err(error) => println!("error: {error}"),
-      }
+    // let val3=random_range(1..100);
 
     // print!("val1: {},\n val2: {},\n val3: {}",val1,val2,val3);
 
+    let random_number = generate_rand_number();
+    let mut input_str = String::from("");
+    println!("Enter any random number from 1 to 100..");
+    stdin()
+        .read_line(&mut input_str)
+        .expect("failed to read input");
 
-    
+    let user_option: u32 = input_str
+        .trim()
+        .parse()
+        .expect("Please type a number from 1 - 100.");
+
+    compare_num(random_number, user_option);
+
 }
