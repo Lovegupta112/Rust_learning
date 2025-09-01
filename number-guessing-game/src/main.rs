@@ -1,30 +1,31 @@
 use rand::{Rng, random, random_range, rng};
 use std::io::stdin;
 
+const ATTEMPT_LIMIT: u32 = 5;
+
 fn generate_rand_number() -> u32 {
     let val = random_range(1..100);
     val
 }
 
-fn compare_num(random_number: u32, user_option: u32) {
+fn compare_num(random_number: u32, user_option: u32) -> bool {
     if random_number == user_option {
         println!("You win!");
-        println!(
-            "System Number: {}, Your number:{} ",
-            random_number, user_option
-        );
+
+        println!("----------------------------------------------");
+        true
     } else if random_number > user_option {
         println!("Too Low!");
-        println!(
-            "System Number: {}, Your number:{} ",
-            random_number, user_option
-        );
+
+        println!("----------------------------------------------");
+
+        false
     } else {
         println!("Too High!");
-        println!(
-            "System Number: {}, Your number:{} ",
-            random_number, user_option
-        );
+
+        println!("----------------------------------------------");
+
+        false
     }
 }
 fn main() {
@@ -34,18 +35,35 @@ fn main() {
 
     // print!("val1: {},\n val2: {},\n val3: {}",val1,val2,val3);
 
+    let mut user_attempt_limit = 0;
     let random_number = generate_rand_number();
-    let mut input_str = String::from("");
-    println!("Enter any random number from 1 to 100..");
-    stdin()
-        .read_line(&mut input_str)
-        .expect("failed to read input");
+    let mut win;
 
-    let user_option: u32 = input_str
-        .trim()
-        .parse()
-        .expect("Please type a number from 1 - 100.");
+    println!("\nWelcome to Number guessing game! \nYou have only 5 attempts..");
 
-    compare_num(random_number, user_option);
+    loop {
+        let mut input_str = String::from("");
+        println!("Enter any random number from 1 to 100.");
+        stdin()
+            .read_line(&mut input_str)
+            .expect("failed to read input");
 
+        let user_option: u32 = input_str
+            .trim()
+            .parse()
+            .expect("Please type a number from 1 - 100.");
+
+        win = compare_num(random_number, user_option);
+
+        if win {
+            break;
+        }
+
+        user_attempt_limit += 1;
+
+        if user_attempt_limit >= ATTEMPT_LIMIT {
+            println!("You lose! The correct number was {random_number}");
+            break;
+        }
+    }
 }
