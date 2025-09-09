@@ -47,4 +47,11 @@ fn main() {
   println!("{} is available: {}",book1.title,is_available);
 
 
+  // let mut s=String::from("hi"); 
+  // s.push_str("folks");
+  // let s1=&s;
+  // let count=s.chars().count();
+
+  // println!("{}, {},count: {:?}",&s,&s1,count);
+
 }
